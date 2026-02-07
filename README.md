@@ -1,6 +1,8 @@
 # Quran Database (MySQL)
 
-This repository provides a ready-to-import MySQL database for the Holy Quran, including Arabic text **with** and **without** Tashkeel.
+This repository provides a ready-to-import MySQL database for the Holy Quran:
+- Arabic text both fully vocalized (with tashkeel/diacritics) and unvocalized (without vowel marks).
+- English translations of meaning provided as separate SQL files that can be optionally imported to extend the database with selected translations.
 
 ## Project Overview
 
@@ -13,7 +15,7 @@ Repository: [https://github.com/bigprof-software/quran-layers](https://github.co
 
 ## What’s Included (Current)
 
-The database contains two core tables:
+The main `quranDB.sql` file contains two core tables:
 
 ### `chapters`
 Stores the Surah metadata:
@@ -32,14 +34,46 @@ Stores each Ayah linked to its Surah:
 
 Arabic is stored using `utf8mb4` to preserve full diacritics.
 
+### Translation SQL Files (`translations/`)
+
+Each optional translation is provided as a separate SQL file using this naming scheme:
+`{Translation_name.sql}`
+
+Each translation file creates a table with the following columns:
+- `id`: Auto-increment row ID.
+- `chapter_id`: Surah number (FK → `chapters.id`).
+- `verse_number`: Ayah number within the Surah (1..n).
+- `english_text`: English translation of the Meaning of the Ayah.
+
+## Prerequisites
+
+
+- MySQL server: https://www.mysql.com/
+- MySQL client: https://www.phpmyadmin.net/ or https://www.heidisql.com/
+> **Note:** If you’re working on a local machine, a stack such as XAMPP can install a MySQL server locally on your system, along with phpMyAdmin, the popular MySQL client.
+
 ## How to Use
 
-1. Create a database named **`QuranDB`** (or let the import create it).
-2. In your MySQL client (phpMyAdmin / MySQL Workbench / CLI), use **Import**.
-3. Import this file only:
-   - `quran_database/quranDB.sql`
+1. Get the repository:
+   - Clone: `git clone https://github.com/webuccinoco/quran_mysql_database.git`
+   - Or download the repository: click the green **Code** button → **Download ZIP**, then extract the ZIP.
+2. Create a database named **`QuranDB`** using your MySQL client (or let the import create it).
+3. In your MySQL client (phpMyAdmin / MySQL Workbench / CLI), use **Import**.
+4. Import this file only:
+   - `quranDB.sql`
 
 That file creates the database, tables, and inserts all data.
+
+### Optional Translations
+
+Translation SQL files are available in `translations/`. Import any single translation file (or all of them) after the main database is imported.
+
+> **Note:** Some translations allow commercial use and others are limited to free/non-commercial use. Check the copyright/license for each translation online **before** importing.
+
+| Translation ID | Title | Translator | Publishing Year | Description |
+| --- | --- | --- | --- | --- |
+| 1 | The Clear Quran | Dr. Mustafa Khattab | 2015 | Uses contemporary English to ensure clarity and accessibility for modern readers. |
+| 2 | The Koran Interpreted | Arthur John Arberry | 1955 | His 1955 translation is highly regarded for its literary quality and attempt to mirror the cadence and rhythm of the original Arabic text. Arberry was a professor of Arabic at Cambridge University, not a practitioner of Islam. |
 
 ## Coming Next
 

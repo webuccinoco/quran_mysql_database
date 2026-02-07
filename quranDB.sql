@@ -1,4 +1,4 @@
-﻿-- Quran database schema (MySQL/MariaDB)
+-- Quran database schema (MySQL/MariaDB)
 -- Core tables only; add translation tables per source later.
 -- Arabic support: utf8mb4 everywhere.
 
@@ -141,6 +141,23 @@ INSERT INTO chapters (id, arabic_name, english_transliteration, english_translat
 (113, 'الفلق', 'Al-Falaq', 'Daybreak'),
 (114, 'الناس', 'An-Nās', 'Mankind');
 COMMIT;
+
+CREATE TABLE IF NOT EXISTS translations (
+  translation_id INT UNSIGNED NOT NULL,
+  translation_title VARCHAR(200) NOT NULL,
+  translator VARCHAR(200) NOT NULL,
+  publishing_year INT UNSIGNED NOT NULL,
+  description TEXT NOT NULL,
+  PRIMARY KEY (translation_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+INSERT INTO translations (translation_id, translation_title, translator, publishing_year, description) VALUES
+(1, 'The Clear Quran', 'Dr. Mustafa Khattab', 2015, 'Uses contemporary English to ensure clarity and accessibility for modern readers.'),
+(2, 'The Koran Interpreted', 'Arthur John Arberry', 1955, 'His 1955 translation is highly regarded for its literary quality and attempt to mirror the cadence and rhythm of the original Arabic text. Arberry was a professor of Arabic at Cambridge University, not a practitioner of Islam.');
+
+
 
 
 CREATE TABLE IF NOT EXISTS verses (
