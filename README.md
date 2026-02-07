@@ -17,14 +17,16 @@ Repository: [https://github.com/bigprof-software/quran-layers](https://github.co
 
 The main `quranDB.sql` file contains two core tables:
 
-### `chapters`
+### `chapters` Table
 Stores the Surah metadata:
 - `id`: Surah number (1–114).
 - `arabic_name`: Arabic Surah name (Unicode).
 - `english_transliteration`: English transliteration of the Surah name.
 - `english_translation`: English meaning/translation of the Surah name.
 
-### `verses`
+> **Note:** If imported successfully, this table should contain 114 records.
+
+### `verses` Table
 Stores each Ayah linked to its Surah:
 - `id`: Auto-increment verse row ID.
 - `chapter_id`: Surah number (FK → `chapters.id`).
