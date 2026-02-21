@@ -10,7 +10,9 @@ The aim is to help teams integrate the Holy Quran text into their infrastructure
 
 ## Recognition
 
-Resource files used to generate this database come from the `quran-layers` project by [BigProf](https://github.com/bigprof-software/quran-layers).  
+The `arabic_text_tashkeel` and `transliteration` data used in this project are sourced from the [Quran JSON API](https://quran-json-api.vercel.app/). We extend our gratitude to the developers of this API for providing accurate and accessible Quranic data.
+
+Resource files used to generate the plain arabic text (The unvocalized without vowel marks) from the `quran-layers` project by [BigProf](https://github.com/bigprof-software/quran-layers).  
 Repository: [https://github.com/bigprof-software/quran-layers](https://github.com/bigprof-software/quran-layers)
 
 ## What’s Included (Current)
@@ -28,11 +30,12 @@ Stores the Surah metadata:
 
 ### `verses` Table
 Stores each Ayah linked to its Surah:
-- `id`: Auto-increment verse row ID.
+- `id`: Unique identifier for each verse.
 - `chapter_id`: Surah number (FK → `chapters.id`).
 - `verse_number`: Ayah number within the Surah (1..n).
-- `arabic_text_tashkeel`: Arabic Ayah text with Tashkeel (diacritics).
-- `arabic_text_plain`: Arabic Ayah text without Tashkeel.
+- `arabic_text_tashkeel`: Fully diacriticized Arabic text.
+- `arabic_text_plain`: Simplified Arabic text without diacritics.
+- `transliteration`: Romanized representation of the Arabic text.
 
 Arabic is stored using `utf8mb4` to preserve full diacritics.
 
@@ -77,11 +80,16 @@ Translation SQL files are available in `translations/`. Import any single transl
 | 1 | The Clear Quran | Dr. Mustafa Khattab | 2015 | Uses contemporary English to ensure clarity and accessibility for modern readers. |
 | 2 | The Koran Interpreted | Arthur John Arberry | 1955 | His 1955 translation is highly regarded for its literary quality and attempt to mirror the cadence and rhythm of the original Arabic text. Arberry was a professor of Arabic at Cambridge University, not a practitioner of Islam. |
 
-## Roadmap
 
-- **Add More Translations** 
-- **Add Transliteration** (Display Arabic to Latin transliteration for each verse)
-- **Add navigation based on traditional Quran structure** (Juz' (Ajzaa - Parts), Hizb, Sajdah (Prostration verses))
-- **Topics, Tags and Verse Linking** (Juz' (Ajzaa - Parts), Hizb, Sajdah (Prostration verses))
-- **Cross-Verse Connections** 
 
+## Change Log
+### Version v1.2.0
+- Updated `arabic_text_tashkeel` values to use the authoritative source mentioned above.
+- Added a new `transliteration` column to the `verses` table.
+- Populated transliteration values for all verses using the same source.
+
+### Version v1.1.0
+- Adding 2 traslations.
+
+### Version v1.0.0
+- Adding the Arabic Text
